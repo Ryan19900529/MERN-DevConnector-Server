@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://cool1:cool1@cluster0.vshvz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0",
-  "jwtSecret": "ryansecrettoken"
+  "jwtSecret": "ryansecrettoken",
+  "githubClientId": "Ov23liYoFj7iO9EVplP8",
+  "githubSecret": "88bd26f0a82248374cb57f71435155ae52304a85"
 }
