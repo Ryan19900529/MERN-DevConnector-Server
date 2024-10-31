@@ -134,6 +134,7 @@ router.get("/user/:user_id", async (req, res) => {
     res.json(profile);
   } catch (error) {
     console.error(error.message);
+    // check if the id passed in is not a valid object id
     if (error.kind === "ObjectId") {
       return res.status(400).json({ msg: "Profile not found" });
     }
