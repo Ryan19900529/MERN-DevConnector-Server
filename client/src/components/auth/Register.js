@@ -1,6 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { removeAlert, setAlert } from "../../redux/alert";
+import PropTypes from "prop-types";
+import { v4 as uuidv4 } from "uuid";
 
 const Register = () => {
   const [formData, setFromData] = useState({
@@ -12,13 +16,25 @@ const Register = () => {
 
   const { name, email, password, password2 } = formData;
 
+  const alertId = uuidv4();
+  const dispatch = useDispatch();
+
   const onChange = (e) =>
     setFromData({ ...formData, [e.target.name]: e.target.value }); //The syntax [e.target.name] tells JavaScript to evaluate e.target.name as an expression and use its resulting value as the property key.
 
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
-      console.log("Passwords do not match");
+      dispatch(
+        setAlert({
+          id: alertId,
+          msg: "Passwords do not match",
+          alertType: "danger",
+        })
+      );
+      setTimeout(() => dispatch(removeAlert(alertId)), 5000);
+
+      // console.log("Passwords do not match");
     } else {
       console.log("SUCCESS");
       // const newUser = {
@@ -104,5 +120,7 @@ const Register = () => {
     </Fragment>
   );
 };
+
+Register.propTypes = {};
 
 export default Register;
