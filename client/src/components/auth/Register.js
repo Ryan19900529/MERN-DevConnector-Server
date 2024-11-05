@@ -1,9 +1,10 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { removeAlert, setAlert } from "../../redux/alert";
-import PropTypes from "prop-types";
+import { registerSuccess, registerFail } from "../../redux/auth";
+// import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
 
 const Register = () => {
@@ -16,7 +17,6 @@ const Register = () => {
 
   const { name, email, password, password2 } = formData;
 
-  const alertId = uuidv4();
   const dispatch = useDispatch();
 
   const onChange = (e) =>
@@ -25,6 +25,7 @@ const Register = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     if (password !== password2) {
+      const alertId = uuidv4();
       dispatch(
         setAlert({
           id: alertId,
@@ -36,7 +37,6 @@ const Register = () => {
 
       // console.log("Passwords do not match");
     } else {
-      console.log("SUCCESS");
       // const newUser = {
       //   name,
       //   email,
@@ -56,6 +56,27 @@ const Register = () => {
       // } catch (err) {
       //   console.error(err.response.data);
       // }
+
+      try {
+        const response = await axios.post("api/users", {
+          name,
+          email,
+          password,
+        });
+        dispatch(registerSuccess({ token: response.data.token }));
+      } catch (err) {
+        const errors = err.response.data.errors;
+        if (errors) {
+          errors.forEach((error) => {
+            const alertId = uuidv4();
+            dispatch(
+              setAlert({ id: alertId, msg: error.msg, alertType: "danger" })
+            );
+          });
+        }
+
+        dispatch(registerFail());
+      }
     }
   };
 
@@ -73,7 +94,7 @@ const Register = () => {
             name='name'
             value={name}
             onChange={(e) => onChange(e)}
-            required
+            // required
           />
         </div>
         <div className='form-group'>
@@ -83,7 +104,7 @@ const Register = () => {
             name='email'
             value={email}
             onChange={(e) => onChange(e)}
-            required
+            // required
           />
           <small className='form-text'>
             This site uses Gravatar so if you want a profile image, use a
@@ -95,10 +116,10 @@ const Register = () => {
             type='password'
             placeholder='Password'
             name='password'
-            minLength='6'
+            // minLength='6'
             value={password}
             onChange={(e) => onChange(e)}
-            required
+            // required
           />
         </div>
         <div className='form-group'>
@@ -106,10 +127,10 @@ const Register = () => {
             type='password'
             placeholder='Confirm Password'
             name='password2'
-            minLength='6'
+            // minLength='6'
             value={password2}
             onChange={(e) => onChange(e)}
-            required
+            // required
           />
         </div>
         <input type='submit' className='btn btn-primary' value='Register' />
@@ -121,6 +142,6 @@ const Register = () => {
   );
 };
 
-Register.propTypes = {};
+// Register.propTypes = {};
 
 export default Register;
