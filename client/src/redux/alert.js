@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
+// Actions are automatically created and paired with the respective reducers when you use createSlice. This removes the need to write separate action creators, simplifying the code and making it more concise.
 const alertSlice = createSlice({
-  name: "alert",
+  name: "alert", // Redux Toolkit uses it to automatically generate action type strings like alert/setAlert. It doesn’t need to match any key in configureStore.
   initialState: [],
   reducers: {
     setAlert: (state, action) => {

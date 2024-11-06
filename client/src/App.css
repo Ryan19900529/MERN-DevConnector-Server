@@ -317,6 +317,7 @@ button {
 }
 
 .navbar a {
+  cursor: pointer;
   color: #fff;
   padding: 0.45rem;
   margin: 0 0.25rem;

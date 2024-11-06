@@ -7,6 +7,8 @@ import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./redux/auth";
+import Dashboard from "./components/dashboard/Dashboard";
+import PrivateRoute from "./components/routing/PrivateRoute";
 // Redux
 import { useDispatch } from "react-redux";
 
@@ -35,6 +37,10 @@ const App = () => {
           <Routes>
             <Route path='/register' element={<Register />} />
             <Route path='/login' element={<Login />} />
+            <Route
+              path='/dashboard'
+              element={<PrivateRoute component={Dashboard} />}
+            />
           </Routes>
         </section>
       </Fragment>

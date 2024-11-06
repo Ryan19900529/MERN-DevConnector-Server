@@ -1,5 +1,8 @@
 import React, { Fragment, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import { login } from "../../redux/auth";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 const Login = () => {
   const [formData, setFromData] = useState({
@@ -8,14 +11,21 @@ const Login = () => {
   });
 
   const { email, password } = formData;
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const onChange = (e) =>
     setFromData({ ...formData, [e.target.name]: e.target.value }); //The syntax [e.target.name] tells JavaScript to evaluate e.target.name as an expression and use its resulting value as the property key.
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("SUCCESS");
+    dispatch(login(email, password));
   };
+
+  // Redirect if logged in
+  if (isAuthenticated) {
+    return <Navigate to='/dashboard' />;
+  }
 
   return (
     <Fragment>
@@ -52,6 +62,10 @@ const Login = () => {
       </p>
     </Fragment>
   );
+};
+
+Login.propTypes = {
+  isAuthenticated: PropTypes.bool,
 };
 
 export default Login;
