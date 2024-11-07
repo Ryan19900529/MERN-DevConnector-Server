@@ -9,10 +9,12 @@ import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./redux/auth";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
+import EditProfile from "./components/profile-form/EditProfile";
 // Redux
 import { useDispatch } from "react-redux";
 
 import "./App.css";
+import CreateProfile from "./components/profile-form/CreateProfile";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -40,6 +42,14 @@ const App = () => {
             <Route
               path='/dashboard'
               element={<PrivateRoute component={Dashboard} />}
+            />
+            <Route
+              path='/create-profile'
+              element={<PrivateRoute component={CreateProfile} />}
+            />
+            <Route
+              path='/edit-profile'
+              element={<PrivateRoute component={EditProfile} />}
             />
           </Routes>
         </section>
