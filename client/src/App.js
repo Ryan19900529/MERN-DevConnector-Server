@@ -6,12 +6,13 @@ import Login from "./components/auth/Login";
 import Register from "./components/auth/Register";
 import Alert from "./components/layout/Alert";
 import setAuthToken from "./utils/setAuthToken";
+import { useDispatch } from "react-redux";
 import { loadUser } from "./redux/auth";
 import Dashboard from "./components/dashboard/Dashboard";
 import PrivateRoute from "./components/routing/PrivateRoute";
 import EditProfile from "./components/profile-form/EditProfile";
-// Redux
-import { useDispatch } from "react-redux";
+import AddExperience from "./components/profile-form/AddExperience";
+import AddEducation from "./components/profile-form/AddEducation";
 
 import "./App.css";
 import CreateProfile from "./components/profile-form/CreateProfile";
@@ -50,6 +51,14 @@ const App = () => {
             <Route
               path='/edit-profile'
               element={<PrivateRoute component={EditProfile} />}
+            />
+            <Route
+              path='/add-experience'
+              element={<PrivateRoute component={AddExperience} />}
+            />
+            <Route
+              path='/add-education'
+              element={<PrivateRoute component={AddEducation} />}
             />
           </Routes>
         </section>

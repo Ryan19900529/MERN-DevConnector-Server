@@ -68,6 +68,15 @@ const authSlice = createSlice({
       // Remove the token from localStorage
       localStorage.removeItem("token");
     },
+    account_deleted: (state) => {
+      state.token = null;
+      state.isAuthenticated = false;
+      state.loading = false;
+      state.user = null;
+
+      // Remove the token from localStorage
+      localStorage.removeItem("token");
+    },
   },
 });
 export const {
@@ -78,6 +87,7 @@ export const {
   loginFail,
   logout,
   authError,
+  account_deleted,
 } = authSlice.actions;
 
 /**
