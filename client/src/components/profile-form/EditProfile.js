@@ -48,7 +48,7 @@ const EditProfile = (props) => {
       // set local state with the profileData
       setFormData(profileData);
     }
-  }, [loading]);
+  }, [loading, getCurrentProfile]);
 
   const {
     company,

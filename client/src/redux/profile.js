@@ -19,9 +19,14 @@ const profileSlice = createSlice({
       state.profile = action.payload;
       state.loading = false;
     },
+    get_profiles: (state, action) => {
+      state.profiles = action.payload;
+      state.loading = false;
+    },
     profile_error: (state, action) => {
       state.error = action.payload;
       state.loading = false;
+      state.profile = null;
     },
     update_profile: (state, action) => {
       state.profile = action.payload;
@@ -32,18 +37,75 @@ const profileSlice = createSlice({
       state.repos = [];
       state.loading = false;
     },
+    get_repos: (state, action) => {
+      state.repos = action.payload;
+      state.loading = false;
+    },
   },
 });
 
-export const { get_profile, profile_error, update_profile, clear_profile } =
-  profileSlice.actions;
+export const {
+  get_profile,
+  get_profiles,
+  profile_error,
+  update_profile,
+  clear_profile,
+  get_repos,
+} = profileSlice.actions;
 
 // Get current users profile
 export const getCurrentProfile = () => async (dispatch) => {
   try {
-    const res = await axios.get("api/profile/me");
+    const res = await axios.get("/api/profile/me");
 
     dispatch(get_profile(res.data));
+  } catch (err) {
+    dispatch(
+      profile_error({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+// Get all profiles
+export const getProfiles = () => async (dispatch) => {
+  dispatch(clear_profile());
+  try {
+    const res = await axios.get("/api/profile/");
+    dispatch(get_profiles(res.data));
+  } catch (err) {
+    dispatch(
+      profile_error({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+// Get profile by ID
+export const getProfileById = (user_Id) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/user/${user_Id}`);
+    dispatch(get_profile(res.data));
+  } catch (err) {
+    dispatch(
+      profile_error({
+        msg: err.response.statusText,
+        status: err.response.status,
+      })
+    );
+  }
+};
+
+// Get Github repos
+export const getGithubRepos = (username) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/profile/github/${username}`);
+
+    dispatch(get_repos(res.data));
   } catch (err) {
     dispatch(
       profile_error({
@@ -212,7 +274,7 @@ export const deleteEducation = (id) => async (dispatch) => {
 export const deleteAccount = () => async (dispatch) => {
   if (window.confirm("Are you suer? This can NOT be undone!")) {
     try {
-      const res = await axios.delete("api/profile");
+      await axios.delete("api/profile");
 
       dispatch(clear_profile());
       dispatch(account_deleted());
