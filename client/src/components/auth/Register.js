@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { removeAlert, setAlert } from "../../redux/alert";
+import { setAlert } from "../../redux/alert";
 import { registerSuccess, registerFail, loadUser } from "../../redux/auth";
 import PropTypes from "prop-types";
 import { v4 as uuidv4 } from "uuid";
@@ -36,7 +36,7 @@ const Register = () => {
           alertType: "danger",
         })
       );
-      setTimeout(() => dispatch(removeAlert(alertId)), 5000);
+      // setTimeout(() => dispatch(removeAlert(alertId)), 5000);
 
       // console.log("Passwords do not match");
     } else {

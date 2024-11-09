@@ -6,7 +6,7 @@ const alertSlice = createSlice({
   name: "alert", // Redux Toolkit uses it to automatically generate action type strings like alert/setAlert. It doesn’t need to match any key in configureStore.
   initialState: [],
   reducers: {
-    setAlert: (state, action) => {
+    set_Alert: (state, action) => {
       // const { msg, alertType } = action.payload;
       // const newAlert = {
       //   id: uuidv4(), // Assign a unique ID
@@ -22,13 +22,19 @@ const alertSlice = createSlice({
       const { msg, alertType, id } = action.payload;
       state.push({ id: id || uuidv4(), msg, alertType });
     },
-    removeAlert: (state, action) => {
+    remove_Alert: (state, action) => {
       return state.filter((alert) => alert.id !== action.payload);
     },
   },
 });
 
-export const { setAlert, removeAlert } = alertSlice.actions;
+export const { set_Alert, remove_Alert } = alertSlice.actions;
 
-// export setAlert
+export const setAlert =
+  ({ msg, alertType, id }) =>
+  (dispatch) => {
+    dispatch(set_Alert({ msg, alertType, id }));
+
+    setTimeout(() => dispatch(remove_Alert(id)), 3000);
+  };
 export default alertSlice.reducer;
