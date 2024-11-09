@@ -31,10 +31,10 @@ const alertSlice = createSlice({
 export const { set_Alert, remove_Alert } = alertSlice.actions;
 
 export const setAlert =
-  ({ msg, alertType, id }) =>
+  ({ msg, alertType, id }, timeout = 3000) =>
   (dispatch) => {
     dispatch(set_Alert({ msg, alertType, id }));
 
-    setTimeout(() => dispatch(remove_Alert(id)), 3000);
+    setTimeout(() => dispatch(remove_Alert(id)), timeout);
   };
 export default alertSlice.reducer;
