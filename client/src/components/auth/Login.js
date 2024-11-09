@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { login } from "../../redux/auth";
 import { useDispatch, useSelector } from "react-redux";
@@ -28,7 +28,7 @@ const Login = () => {
   }
 
   return (
-    <Fragment>
+    <>
       <h1 className='large text-primary'>Sign In</h1>
       <p className='lead'>
         <i className='fas fa-user'></i> Sign Into Your Account
@@ -60,7 +60,7 @@ const Login = () => {
       <p className='my-1'>
         Don't have an account? <Link to='/register'>Sign Up</Link>
       </p>
-    </Fragment>
+    </>
   );
 };
 

@@ -16,7 +16,7 @@ const Profile = () => {
   const auth = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(getProfileById(id));
-  }, []);
+  }, [getProfileById]);
 
   return (
     <>

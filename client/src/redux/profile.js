@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import setAuthToken from "../utils/setAuthToken";
+// import setAuthToken from "../utils/setAuthToken";
 import { setAlert } from "./alert";
 import { v4 as uuidv4 } from "uuid";
 import { account_deleted } from "./auth";

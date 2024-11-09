@@ -8,7 +8,7 @@ const ProfileGithub = ({ username }) => {
   const { repos } = useSelector((state) => state.profile);
   useEffect(() => {
     dispatch(getGithubRepos(username));
-  }, []);
+  }, [getGithubRepos]);
   return (
     <div className='profile-github'>
       <h2 className='text-primary my-1'>Github Repos</h2>

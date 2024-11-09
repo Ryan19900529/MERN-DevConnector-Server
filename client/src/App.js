@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import { Fragment, useEffect } from "react";
+import { useEffect } from "react";
 import Navbar from "./components/layout/Navbar";
 import Landing from "./components/layout/Landing";
 import Login from "./components/auth/Login";
@@ -15,6 +15,8 @@ import AddExperience from "./components/profile-form/AddExperience";
 import AddEducation from "./components/profile-form/AddEducation";
 import Profiles from "./components/profiles/Profiles";
 import Profile from "./components/profile/Profile";
+import Posts from "./components/posts/Posts";
+import Post from "./components/post/Post";
 
 import "./App.css";
 import CreateProfile from "./components/profile-form/CreateProfile";
@@ -32,7 +34,7 @@ const App = () => {
 
   return (
     <Router>
-      <Fragment>
+      <>
         <Navbar />
         <Routes>
           <Route path='/' element={<Landing />} />
@@ -64,9 +66,14 @@ const App = () => {
               path='/add-education'
               element={<PrivateRoute component={AddEducation} />}
             />
+            <Route path='/posts' element={<PrivateRoute component={Posts} />} />
+            <Route
+              path='/posts/:id'
+              element={<PrivateRoute component={Post} />}
+            />
           </Routes>
         </section>
-      </Fragment>
+      </>
     </Router>
   );
 };
